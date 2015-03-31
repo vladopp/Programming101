@@ -70,7 +70,7 @@ def fib_number(n):
     res = ""
     for numb in fib_num:
         res += str(numb)
-    return res
+    return int(res)
 
 
 def count_vowels(st):
