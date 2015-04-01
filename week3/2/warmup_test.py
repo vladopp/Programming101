@@ -59,9 +59,10 @@ class test(unittest.TestCase):
         self.assertEqual(warmup.count_consonants("Github is the second best thing that happend to programmers, after the keyboard"), 44)
         self.assertEqual(warmup.count_consonants("A nice day to code!"), 6)
 
-#    def test_char_histogram(self):
-#        self.assertEqual(warmup.char_histogram("Python"), {'P': 1, 'y': 1, 't': 1, 'h': 1, 'o': 1, 'n': 1, '!': 1})
-#        self.assertEqual(warmup.char_histogram("AAAAaaa!!!"), {'A': 4, 'a': 3, '!': 3})
+    def test_char_histogram(self):
+        x = {'P': 1, 'y': 1, 't': 1, 'h': 1, 'o': 1, 'n': 1, '!': 1}
+        self.assertDictEqual(warmup.char_histogram("Python!"), x)
+        self.assertEqual(warmup.char_histogram("AAAAaaa!!!"), {'A': 4, 'a': 3, '!': 3})
 
     def test_p_score_function(self):
         self.assertEqual(warmup.p_score(121), 1)
