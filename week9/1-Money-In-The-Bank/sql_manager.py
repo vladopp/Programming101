@@ -9,7 +9,15 @@ conn = sqlite3.connect("bank.db")
 cursor = conn.cursor()
 
 
-def change_message(new_message, logged_user):
+def get_email(username):
+    email_query = "SELECT email from clients WHERE username = ?"
+    cursor.execute(email_query, (username,))
+    email = cursor.fetchone()
+    if type(email) is tuple:
+        return email[0]
+
+
+
     update_sql = "UPDATE clients SET message = ? WHERE id = ?"
     cursor.execute(update_sql, (new_message, logged_user.get_id()))
     conn.commit()
@@ -22,10 +30,10 @@ def change_pass(new_pass, logged_user):
     conn.commit()
 
 
-def register(username, password):
+def register(username, password, email):
     password = hashit(password)
-    insert_sql = "INSERT INTO clients (username, password) VALUES (?, ?)"
-    cursor.execute(insert_sql, (username, password))
+    insert_sql = "INSERT INTO clients (username, password, email) VALUES (?, ?, ?)"
+    cursor.execute(insert_sql, (username, password, email))
     conn.commit()
 
 
@@ -36,7 +44,7 @@ def login(username, password):
     last_attempt = cursor.fetchone()
     if type(last_attempt) is not tuple:
         return -2
-    if last_attempt[0] % 5 == 0 and time.time() - last_attempt[1] < 300:
+    if last_attempt[0] % 5 == 0 and last_attempt[0] > 0 and time.time() - last_attempt[1] < 300:
         return -1
 
     select_query = "SELECT id, username, balance, message FROM clients WHERE username = ? AND password = ? LIMIT 1"

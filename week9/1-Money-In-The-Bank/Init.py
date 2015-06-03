@@ -13,7 +13,8 @@ def create_clients_table():
                 balance REAL DEFAULT 0,
                 message TEXT,
                 login_attempts INTEGER DEFAULT 0,
-                last_attempt REAL DEFAULT 0)'''
+                last_attempt REAL DEFAULT 0,
+                email TEXT)'''
 
     cursor.execute(create_query)
 

@@ -1,4 +1,5 @@
-import sql_manager
+from Init import create_db
+import logic
 import getpass
 from smtplib import SMTP
 
@@ -23,16 +24,16 @@ def main_menu():
 
 
 def logged_menu(logged_user):
-    print("Welcome you are logged in as: " + logged_user.get_username())
+    print("Welcome you are logged in as: " + logged_user.username)
 
     while True:
         command = input("Logged>>")
         if command == 'info':
             info(logged_user)
-        elif command == 'changepass':
-            changepass(logged_user)
+        elif command == 'change-password':
+            change_password(logged_user)
         elif command == 'change-message':
-            change_message()
+            change_message(logged_user)
         elif command == 'show-message':
             print(logged_user.get_message())
         elif command == 'help':
@@ -46,11 +47,11 @@ def register():
     password = getpass.getpass(prompt="Enter your password: ")
 
     while invalid_password(username, password):
-        password = getpass.getpass(prompt="Your password must be longer than 8 characters, must contain both upper- and lowercase letter, number and a special symbol!\nAlso it shouldn't contain your username!\nEnter your password: ")
+        password = getpass.getpass(prompt="Your password must be:\n longer than 8 characters,\n must contain both upper- and lowercase letter, number and a special symbol!\nit shouldn't contain your username!\nEnter your password: ")
 
     email = input("Enter your email address: ")
 
-    sql_manager.register(username, password, email)
+    logic.register(username, password, email)
 
     print("Registration Successfull")
 
@@ -69,7 +70,7 @@ def login():
     username = input("Enter your username: ")
     password = getpass.getpass(prompt="Enter your password: ")
 
-    logged_user = sql_manager.login(username, password)
+    logged_user = logic.login(username, password)
 
     if logged_user == -2:
         print("There is no such username")
@@ -88,24 +89,28 @@ def help1():
 
 
 def info(logged_user):
-    print("You are: " + logged_user.get_username())
-    print("Your id is: " + str(logged_user.get_id()))
-    print("Your balance is:" + str(logged_user.get_balance()) + '$')
+    print("You are: " + logged_user.username)
+    print("Your id is: " + str(logged_user.id))
+    print("Your balance is:" + str(logged_user.balance) + '$')
 
 
-def changepass(logged_user):
-    new_pass = input("Enter your new password: ")
-    sql_manager.change_pass(new_pass, logged_user)
+def change_password(logged_user):
+    new_password = getpass.getpass(prompt="Enter your new password: ")
+
+    while invalid_password(logged_user.username, new_password):
+        new_password = getpass.getpass(prompt="Your password must be:\n longer than 8 characters,\n must contain both upper- and lowercase letter, number and a special symbol!\nit shouldn't contain your username!\nEnter your password: ")
+
+    logic.change_pass(new_password, logged_user)
 
 
 def change_message(logged_user):
     new_message = input("Enter your new message: ")
-    sql_manager.change_message(new_message, logged_user)
+    logic.change_message(new_message, logged_user)
 
 
 def help2():
     print("info - for showing account info")
-    print("changepass - for changing passowrd")
+    print("change-password - for changing passowrd")
     print("change-message - for changing users message")
     print("show-message - for showing users message")
 
@@ -117,7 +122,7 @@ def send_reset_password():
 
 
 def main():
-    sql_manager.create_clients_table()
+    create_db()
     main_menu()
 
 if __name__ == '__main__':
