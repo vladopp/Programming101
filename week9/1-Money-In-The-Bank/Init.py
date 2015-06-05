@@ -1,21 +1,24 @@
-import sqlite3
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import Column, Integer, String
+from sqlalchemy import create_engine
+import settings
+
+Base = declarative_base()
 
 
-conn = sqlite3.connect("bank.db")
-cursor = conn.cursor()
+class Client(Base):
+    __tablename__ = "Clients"
+    id = Column(Integer, primary_key=True)
+    username = Column(String)
+    password = Column(String)
+    balance = Column(Integer, default=0)
+    message = Column(String)
+    login_attempts = Column(Integer, default=0)
+    last_attempt = Column(Integer, default=0)
+    email = Column(String)
+
+engine = create_engine(settings.DATABASE)
 
 
-def create_clients_table():
-    create_query = '''create table if not exists
-        clients(id INTEGER PRIMARY KEY AUTOINCREMENT,
-                username TEXT UNIQUE,
-                password TEXT,
-                balance REAL DEFAULT 0,
-                message TEXT,
-                login_attempts INTEGER DEFAULT 0,
-                last_attempt REAL DEFAULT 0,
-                email TEXT)'''
-
-    cursor.execute(create_query)
-
-create_clients_table()
+def create_db():
+    Base.metadata.create_all(engine)
