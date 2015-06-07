@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'zg_!@ep#)f!eq&5vu@e@bv0s^jfo70_)86nz)b_y%g5o%75&&u'
+SECRET_KEY = 'rb7)1)2o*pjtajmf04i^ivlurq^+cq8m6*9gr&*_d*^%3m^zsk'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -39,6 +39,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
 
     'website',
+    'django_tables2',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -102,3 +103,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
+
+TEMPLATE_CONTEXT_PROCESSOR = (
+    'django.core.context_processors.request',
+)

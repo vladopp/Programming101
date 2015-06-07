@@ -1,0 +1,39 @@
+<html>
+	<head>
+	<title>Cinema</title>
+	<style>
+		#hack-header {color: green;
+			font-size: 20px;}
+			.hack-text {color: blue;
+				background: #FF9990;}
+				p {padding: 30px;}
+			</style>
+		</head>
+		<body>
+			<h1 id="hack-header">
+				Reservation
+			</h1>
+			<form action="/reservation/" method="POST">
+{% csrf_token %}
+		<h3>{{ projection}}</h3> 
+				<div>
+
+					<input type="text" name="username" placeholder="Username" required/>
+				</div>
+				<br></br>
+				<form >
+					Choose row: 
+					<input type="number" name="row" min="1" max="10">
+					<input type="submit">
+				</form>
+				<form >
+					Choose column: 
+					<input type="number" name="column" min="1" max="10">
+					<input type="submit">
+				</form>
+
+				<a href="/reserved/" button >
+				<button type="submit" class="btn btn-success">Make Reservation</button></a>
+</form>
+		</body>
+</html>

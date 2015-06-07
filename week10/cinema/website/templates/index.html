@@ -1,13 +1,69 @@
 <html>
 <head>
-	that big head
-</head>
-<body>
-	Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-	tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-	quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-	consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-	cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-	proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-</body>
-</html>
+	<title>Cinema</title>
+	<style>
+		#hack-header {color: purple;
+			font-size: 20px;}
+			.hack-text {color: blue;
+				background: #FF9800;}
+				p {padding: 30px;}
+			</style>
+		</head>
+		<body>
+
+			<h1 id="hack-header">
+				Movie Reservation
+			</h1>
+			<hr></hr>
+			<table class="table" border="1" style="width:50%">
+				<tr>
+					<thead>
+						<th>Movie</th>
+						<th>Genre</th> 
+						<th>Raiting</th>
+					</thead>
+				</tr>
+				{% for movie in movies %}
+				<tr class="alt">
+					<td>
+						{{movie.name}}
+					</td>
+					<td>
+						{{movie.raiting}}
+					</td>
+					<td>
+						{{movie.length}}
+					</td>
+				</tr>
+				{% endfor %}
+			</table>
+
+			<h1 id="hack-headers" >Projections</h1>
+
+			<table class="table" border="1" style="width:50%">
+				<tr>
+					<thead>
+					<th>Movie</th>
+					<th>Type</th> 
+					<th>Time</th>
+					<th>Reservation</th>
+					</thead>
+				</tr>
+				{% for projection in projections %}
+				<tr class="alt">
+					<td>
+						{{projection.movie_id}}
+					</td>
+					<td>
+						{{projection.get_type_display}} 
+					</td>
+					<td>{{projection.projection_time}}</td>
+					<td><a href="/reservation/{{ projection.id }}" button >Make Reservation</a></td>
+				</tr>
+				{% endfor %}
+			</table>
+
+	</body>
+
+
+	</html>

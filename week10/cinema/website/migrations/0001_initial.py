@@ -13,10 +13,9 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Movie',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('name', models.CharField(max_length=100)),
-                ('rating', models.FloatField()),
-                ('length', models.PositiveSmallIntegerField()),
+                ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True, serialize=False)),
+                ('name', models.CharField(max_length=10)),
+                ('raiting', models.FloatField()),
             ],
         ),
     ]

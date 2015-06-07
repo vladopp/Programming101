@@ -1,0 +1,111 @@
+<!-- <html>
+	<head>
+		<title>Cinema</title>
+		<style>
+		#hack-header {color: green;
+						font-size: 20px;}
+		.hack-text {color: blue;
+					background: #FF9990;}
+		p {padding: 30px;}
+		</style>
+	</head>
+	<body>
+	<h1 id="hack-header">
+		Heading
+	</h1>
+	<p class="hack-text">
+	dfsdfsdfsdfsds
+	</p>
+		<p class="hack-text">
+		dasfsdfdf
+		</p>
+		<a href="/index/">link</a>
+
+	</body>
+
+
+	</html>  -->
+	{# tutorial/templates/people.html #}
+	{% load render_table from django_tables2 %}
+	<!doctype html>
+	<html>
+	<head>
+		<link rel="stylesheet" href="{{ STATIC_URL }}django_tables2/themes/paleblue/css/screen.css" />
+		<style>
+		.datagrid table { border-collapse: collapse; text-align: left; width: 100%; } .datagrid {font: normal 12px/150% Arial, Helvetica, sans-serif; background: #fff; overflow: hidden;  -webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px; }.datagrid table td, .datagrid table th { padding: 3px 10px; }.datagrid table thead th {background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #652299), color-stop(1, #4D1A75) );background:-moz-linear-gradient( center top, #652299 5%, #4D1A75 100% );filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#652299', endColorstr='#4D1A75');background-color:#652299; color:#FFFFFF; font-size: 15px; font-weight: bold; border-left: 1px solid #714399; } .datagrid table thead th:first-child { border: none; }.datagrid table tbody td { color: #4D1A75; border-left: 1px solid #E7BDFF;font-size: 12px;font-weight: normal; }.datagrid table tbody .alt td { background: #F4E3FF; color: #4D1A75; }.datagrid table tbody td:first-child { border-left: none; }.datagrid table tbody tr:last-child td { border-bottom: none; }
+			#movie-headers {color: #B29272;
+				text-align:left;
+				font-size: 30px;}
+			table, th, td {
+			    border: 1px solid black;
+			    border-collapse: collapse;
+			}
+
+			</style>
+		</head>
+		<body style="background-color:#FFFFF0">
+			<h1 id="movie-headers" >Current movies</h1>
+<!-- 			<img src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTAL-BwV5SokakSsQE-s-Ud1TAIAhqFpfeGp8i9fi9KEyWsTNc7cw"  align="right"> -->
+			<div class="datagrid">
+			<table class="table" border="1" style="width:50%">
+				<tr>
+					<thead>
+					<th>Movie</th>
+					<th>Genre</th> 
+					<th>Raiting</th>
+					<th>Length</th>
+					</thead>
+				</tr>
+				{% for movie in movies %}
+				<tr class="alt">
+					<td>
+						{{movie.name}}
+					</td>
+					<td>
+						{{movie.get_genre_display}} 
+					</td>
+					<td>
+						{{movie.raiting}}
+					</td>
+					<td>
+						{{movie.length}}
+					</td>
+				</tr>
+				{% endfor %}
+			</table>
+			</div>
+			<!-- {% render_table movies %} -->
+			<p></p>
+			<h1 id="movie-headers" >Projections</h1>
+			<div class="datagrid">
+			<table class="table" border="1" style="width:50%">
+				<tr>
+					<thead>
+					<th>Movie</th>
+					<th>Type</th> 
+					<th>Time</th>
+					</thead>
+				</tr>
+				{% for projection in projections %}
+				<tr class="alt">
+					<td>
+						{{projection.movie_id}}
+					</td>
+					<td>
+						{{projection.get_type_display}} 
+					</td>
+					<td>{{projection.projection_time}}</td>
+				</tr>
+				{% endfor %}
+			</table>
+			</div>
+			<!-- <a href="{% url 'reservation' %}">Make Reservation</a> -->
+			<th><a href="/reservation/" button >Click</a></th>
+				<!-- <a href="http://www.start.bg/lenta/cinema.php" target="_self">Кино</a> -->
+<!-- 			<form action="#" method="get">
+ <input type="submit" class="btn" value="Click" name="mybtn" href="/reservation.html/">
+</form> -->
+		<!-- <button type="button" action="/reservation url/">Make Reservation</button> -->
+		</body>
+		</html>
+
