@@ -1,4 +1,4 @@
-from graph import DirectedGraph
+from gitsoc import DirectedGraph
 import unittest
 
 
