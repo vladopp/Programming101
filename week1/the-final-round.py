@@ -1,3 +1,6 @@
+import calendar
+
+
 def count_words(arr):
     dic = {}
     for word in arr:
@@ -92,6 +95,7 @@ def list_of_divisors(n):
 def prepare_meal(number):
     import math
     n = 0
+
     for num in list_of_divisors(number):
         if math.log(num, 3) % 1 == 0:
             n = int(math.log(num, 3))
@@ -107,7 +111,9 @@ def prepare_meal(number):
 def reduce_file_path(path):
     items = path.split("/")
     items = [x for x in items if x != '.' and x != '']
+
     print(items)
+
     for i in range(len(items)):
         if len(items) > 0:
             if items[len(items)-1] == '..':
@@ -122,10 +128,13 @@ def reduce_file_path(path):
 def is_an_bn(word):
     if word == "":
         return True
+
     a = set(word[0:int(len(word) / 2)])
     b = set(word[int(len(word) / 2):])
+
     if a == {'a'} and b == {'b'} and len(word) % 2 == 0:
         return True
+
     return False
 
 
@@ -133,7 +142,9 @@ def is_credit_card_valid(number):
     num = str(number)
     if len(num) % 2 == 0:
         return False
+
     summ = 0
+
     for i in range(len(num)):
         if i % 2 == 0:
             summ += int(num[i])
@@ -142,38 +153,80 @@ def is_credit_card_valid(number):
             while asd != 0:
                 summ += (asd % 10)
                 asd = asd // 10
+
     if summ % 10 == 0:
         return True
     else:
         return False
 
 
+def is_prime(n):
+    n = abs(n)
+    if n == 1:
+        return False
+
+    for i in range(2, n):
+        if n % i == 0:
+            return False
+
+    return True
+
+
 def goldbach(n):
-    pass
+    result = []
+    primes = [x for x in range(2, n + 1) if is_prime(x)]
+
+    for a in primes:
+        if a <= n / 2:
+            result.append([(a, b) for b in primes if a + b == n])
+
+    return [res[0] for res in result if res != []]
 
 
 def magic_square(matrix):
     length = len(matrix)
     summ = sum(matrix[0])
+
     for elm in matrix:
         if summ != sum(elm):
             return False
+
     for n in range(length):
         tempsum = 0
         for m in range(length):
             tempsum += matrix[m][n]
         if tempsum != summ:
             return False
+
     diagonal1 = 0
+
     for i in range(length):
         diagonal1 += matrix[i][i]
     if diagonal1 != summ:
         return False
+
     diagonal2 = 0
+
     for p in range(length):
         diagonal2 += matrix[length-1-p][p]
     if diagonal2 != summ:
         return False
+
     return True
 
-# kostaaa
+
+def friday_years(start, end):
+    result = 0
+
+    for year in range(start, end + 1):
+        fridays_in_year = 0
+        for month in range(1, 13):
+            weeks = calendar.monthcalendar(year, month)
+            for row in weeks:
+                if row[4] != 0:
+                    fridays_in_year += 1
+
+        if fridays_in_year == 53:
+            result += 1
+
+    return result
